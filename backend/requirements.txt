@@ -1,0 +1,11 @@
+langchain-google-genai
+langchain-core
+langgraph
+fastapi
+uvicorn
+supabase
+pydantic
+typing-extensions
+uuid
+
+python-dotenv
