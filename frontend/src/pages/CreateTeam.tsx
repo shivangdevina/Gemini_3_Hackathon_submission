@@ -2,9 +2,9 @@ import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
-import { 
-  Search, 
-  Filter, 
+import {
+  Search,
+  Filter,
   ChevronDown,
   Trophy,
   Code,
@@ -106,6 +106,139 @@ const users = [
   },
 ];
 
+const mockUsers = [
+  {
+    id: 101,
+    name: "James Wilson",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=james",
+    role: "Full Stack Developer",
+    skills: ["React", "Web Developer", "Node.js", "AI Integration", "LLM", "API Integration"],
+    experience: "Advanced",
+    hackathonsWon: 7,
+    projects: 25,
+    location: "New York, NY",
+    available: true,
+    bio: "Full stack wizard with a passion for integrating AI into scalable web applications.",
+  },
+  {
+    id: 102,
+    name: "Sophia Martinez",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sophia",
+    role: "AI Engineer",
+    skills: ["React", "Web Developer", "Node.js", "AI Integration", "LLM", "API Integration"],
+    experience: "Intermediate",
+    hackathonsWon: 4,
+    projects: 18,
+    location: "Austin, TX",
+    available: true,
+    bio: "Specializing in LLM fine-tuning and building robust AI-driven backend systems.",
+  },
+  {
+    id: 103,
+    name: "Daniel Lee",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=daniel",
+    role: "Frontend Architect",
+    skills: ["React", "Web Developer", "Node.js", "AI Integration", "LLM", "API Integration"],
+    experience: "Advanced",
+    hackathonsWon: 6,
+    projects: 30,
+    location: "San Francisco, CA",
+    available: false,
+    bio: "Architecting seamless frontend experiences powered by modern AI technologies.",
+  },
+  {
+    id: 104,
+    name: "Olivia Brown",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=olivia",
+    role: "Backend Specialist",
+    skills: ["React", "Web Developer", "Node.js", "AI Integration", "LLM", "API Integration"],
+    experience: "Intermediate",
+    hackathonsWon: 3,
+    projects: 12,
+    location: "Seattle, WA",
+    available: true,
+    bio: "Building secure and scalable backends for next-gen AI applications.",
+  },
+  {
+    id: 105,
+    name: "Ethan Davis",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=ethan",
+    role: "Full Stack Developer",
+    skills: ["React", "Web Developer", "Node.js", "AI Integration", "LLM", "API Integration"],
+    experience: "Beginner",
+    hackathonsWon: 2,
+    projects: 8,
+    location: "Chicago, IL",
+    available: true,
+    bio: "Eager to learn and build full-stack AI solutions. Quick learner and team player.",
+  },
+  {
+    id: 106,
+    name: "Ava Wilson",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=ava",
+    role: "AI Researcher",
+    skills: ["React", "Web Developer", "Node.js", "AI Integration", "LLM", "API Integration"],
+    experience: "Advanced",
+    hackathonsWon: 9,
+    projects: 22,
+    location: "Boston, MA",
+    available: true,
+    bio: "Pushing the boundaries of AI integration in web development.",
+  },
+  {
+    id: 107,
+    name: "Noah Taylor",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=noah",
+    role: "Software Engineer",
+    skills: ["React", "Web Developer", "Node.js", "AI Integration", "LLM", "API Integration"],
+    experience: "Intermediate",
+    hackathonsWon: 5,
+    projects: 15,
+    location: "Denver, CO",
+    available: false,
+    bio: "Versatile engineer with a knack for solving complex problems with AI.",
+  },
+  {
+    id: 108,
+    name: "Isabella Anderson",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=isabella",
+    role: "Product Developer",
+    skills: ["React", "Web Developer", "Node.js", "AI Integration", "LLM", "API Integration"],
+    experience: "Advanced",
+    hackathonsWon: 6,
+    projects: 28,
+    location: "Los Angeles, CA",
+    available: true,
+    bio: "Creating user-centric products that leverage the power of advanced AI models.",
+  },
+  {
+    id: 109,
+    name: "Lucas Thomas",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=lucas",
+    role: "DevOps Engineer",
+    skills: ["React", "Web Developer", "Node.js", "AI Integration", "LLM", "API Integration"],
+    experience: "Intermediate",
+    hackathonsWon: 3,
+    projects: 14,
+    location: "Miami, FL",
+    available: true,
+    bio: "Streamlining deployment pipelines for AI-integrated applications.",
+  },
+  {
+    id: 110,
+    name: "Mia White",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=mia",
+    role: "Full Stack Developer",
+    skills: ["React", "Web Developer", "Node.js", "AI Integration", "LLM", "API Integration"],
+    experience: "Beginner",
+    hackathonsWon: 1,
+    projects: 5,
+    location: "Atlanta, GA",
+    available: true,
+    bio: "Passionate about full-stack development and exploring the world of AI.",
+  }
+];
+
 const experienceColors: Record<string, string> = {
   Beginner: "bg-green-500/10 text-green-400 border-green-500/20",
   Intermediate: "bg-blue-500/10 text-blue-400 border-blue-500/20",
@@ -134,16 +267,9 @@ export default function CreateTeam() {
   // Filter users based on search query
   const filteredUsers = useMemo(() => {
     if (!debouncedQuery.trim()) return users;
-    
-    const query = debouncedQuery.toLowerCase();
-    return users.filter((user) => 
-      user.name.toLowerCase().includes(query) ||
-      user.role.toLowerCase().includes(query) ||
-      user.skills.some(skill => skill.toLowerCase().includes(query)) ||
-      user.location.toLowerCase().includes(query) ||
-      user.bio.toLowerCase().includes(query) ||
-      user.experience.toLowerCase().includes(query)
-    );
+
+    // Always return full mockUsers list irrespective of search query
+    return mockUsers;
   }, [debouncedQuery]);
 
   return (
@@ -152,14 +278,14 @@ export default function CreateTeam() {
         {/* Header */}
         <div className="mb-8 flex items-start justify-between">
           <div>
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-3xl font-bold mb-2"
             >
               Find Your <span className="text-gradient">Dream Team</span>
             </motion.h1>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
@@ -185,7 +311,7 @@ export default function CreateTeam() {
         </div>
 
         {/* Search & Filters */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -313,7 +439,7 @@ export default function CreateTeam() {
 
         {/* Results Count */}
         {debouncedQuery && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="mb-4 text-sm text-muted-foreground"
@@ -348,7 +474,7 @@ export default function CreateTeam() {
 
         {/* Empty State */}
         {!isSearching && filteredUsers.length === 0 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-16"
@@ -368,87 +494,87 @@ export default function CreateTeam() {
         {!isSearching && filteredUsers.length > 0 && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredUsers.map((user, index) => (
-            <motion.div
-              key={user.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index }}
-              onClick={() => navigate(`/profile/${user.id}`)}
-              className="group bg-card border border-border rounded-xl p-6 hover:border-primary/30 transition-all cursor-pointer"
-            >
-              {/* Header */}
-              <div className="flex items-start gap-4 mb-4">
-                <div className="relative">
-                  <Avatar className="w-14 h-14 border-2 border-border">
-                    <AvatarImage src={user.avatar} />
-                    <AvatarFallback>{user.name.slice(0, 2)}</AvatarFallback>
-                  </Avatar>
-                  <div className={cn(
-                    "absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full border-2 border-card",
-                    user.available ? "bg-success" : "bg-muted-foreground"
-                  )} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold group-hover:text-primary transition-colors truncate">
-                    {user.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground truncate">{user.role}</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <Badge variant="outline" className={experienceColors[user.experience]}>
-                      {user.experience}
-                    </Badge>
+              <motion.div
+                key={user.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * index }}
+                onClick={() => navigate(`/profile/${user.id}`)}
+                className="group bg-card border border-border rounded-xl p-6 hover:border-primary/30 transition-all cursor-pointer"
+              >
+                {/* Header */}
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="relative">
+                    <Avatar className="w-14 h-14 border-2 border-border">
+                      <AvatarImage src={user.avatar} />
+                      <AvatarFallback>{user.name.slice(0, 2)}</AvatarFallback>
+                    </Avatar>
+                    <div className={cn(
+                      "absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full border-2 border-card",
+                      user.available ? "bg-success" : "bg-muted-foreground"
+                    )} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold group-hover:text-primary transition-colors truncate">
+                      {user.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground truncate">{user.role}</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <Badge variant="outline" className={experienceColors[user.experience]}>
+                        {user.experience}
+                      </Badge>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Bio */}
-              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                {user.bio}
-              </p>
+                {/* Bio */}
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                  {user.bio}
+                </p>
 
-              {/* Skills */}
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                {user.skills.slice(0, 4).map((skill) => (
-                  <Badge key={skill} variant="secondary" className="text-xs">
-                    {skill}
-                  </Badge>
-                ))}
-                {user.skills.length > 4 && (
-                  <Badge variant="secondary" className="text-xs">
-                    +{user.skills.length - 4}
-                  </Badge>
-                )}
-              </div>
-
-              {/* Stats */}
-              <div className="flex items-center justify-between text-sm text-muted-foreground pt-4 border-t border-border">
-                <div className="flex items-center gap-1">
-                  <Trophy className="w-4 h-4 text-warning" />
-                  <span>{user.hackathonsWon} wins</span>
+                {/* Skills */}
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {user.skills.slice(0, 4).map((skill) => (
+                    <Badge key={skill} variant="secondary" className="text-xs">
+                      {skill}
+                    </Badge>
+                  ))}
+                  {user.skills.length > 4 && (
+                    <Badge variant="secondary" className="text-xs">
+                      +{user.skills.length - 4}
+                    </Badge>
+                  )}
                 </div>
-                <div className="flex items-center gap-1">
-                  <Code className="w-4 h-4" />
-                  <span>{user.projects} projects</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <MapPin className="w-4 h-4" />
-                  <span className="truncate max-w-[80px]">{user.location.split(',')[0]}</span>
-                </div>
-              </div>
 
-              {/* CTA */}
-              <Button 
-                className="w-full mt-4 gap-2"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigate('/messages');
-                }}
-              >
-                <MessageCircle className="w-4 h-4" />
-                Message
-              </Button>
-            </motion.div>
-          ))}
+                {/* Stats */}
+                <div className="flex items-center justify-between text-sm text-muted-foreground pt-4 border-t border-border">
+                  <div className="flex items-center gap-1">
+                    <Trophy className="w-4 h-4 text-warning" />
+                    <span>{user.hackathonsWon} wins</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Code className="w-4 h-4" />
+                    <span>{user.projects} projects</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <MapPin className="w-4 h-4" />
+                    <span className="truncate max-w-[80px]">{user.location.split(',')[0]}</span>
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <Button
+                  className="w-full mt-4 gap-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate('/messages');
+                  }}
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  Message
+                </Button>
+              </motion.div>
+            ))}
           </div>
         )}
 

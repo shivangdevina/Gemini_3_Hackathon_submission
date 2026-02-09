@@ -1,9 +1,9 @@
 import { Link, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { 
-  Compass, 
-  Users, 
-  Sparkles, 
+import {
+  Compass,
+  Users,
+  Sparkles,
   Zap,
   ArrowRight,
   Trophy,
@@ -41,15 +41,15 @@ export default function Index() {
               <Sparkles className="w-4 h-4 text-primary" />
               <span>AI-Powered Hackathon Platform</span>
             </div>
-            
+
             <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
               Win Hackathons with Your
               <br />
               <span className="text-gradient">AI Co-Pilot</span>
             </h1>
-            
+
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-              Discover hackathons, build dream teams, and execute winning projects with 
+              Discover hackathons, build dream teams, and execute winning projects with
               AI-powered research, ideation, planning, and implementation support.
             </p>
 
@@ -208,11 +208,11 @@ export default function Index() {
             <div className="flex items-center gap-2">
               <Zap className="w-5 h-5 text-primary" />
               <span className="font-semibold">
-                <span className="text-gradient">Hack</span>Pilot
+                <span className="text-gradient">Dev</span>Collab
               </span>
             </div>
             <p className="text-sm text-muted-foreground">
-              © 2026 HackPilot. Built for hackers, by hackers.
+              © 2026 DevCollab. Built for hackers, by hackers.
             </p>
           </div>
         </div>

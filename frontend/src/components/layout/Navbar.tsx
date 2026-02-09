@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { 
-  Compass, 
-  Users, 
-  Sparkles, 
-  User, 
-  Settings, 
+import {
+  Compass,
+  Users,
+  Sparkles,
+  User,
+  Settings,
   LogOut,
   ChevronDown,
   Zap
@@ -52,8 +52,8 @@ export function Navbar() {
               </div>
             </div>
             <span className="font-semibold text-lg">
-              <span className="text-gradient">Hack</span>
-              <span className="text-foreground">Pilot</span>
+              <span className="text-gradient">Dev</span>
+              <span className="text-foreground">Collab</span>
             </span>
           </Link>
 
@@ -62,7 +62,7 @@ export function Navbar() {
             {navItems.map((item) => {
               const isActive = location.pathname.startsWith(item.path);
               const Icon = item.icon;
-              
+
               return (
                 <Link
                   key={item.path}
@@ -72,8 +72,8 @@ export function Navbar() {
                   <motion.div
                     className={cn(
                       "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors",
-                      isActive 
-                        ? "text-primary-foreground" 
+                      isActive
+                        ? "text-primary-foreground"
                         : "text-muted-foreground hover:text-foreground"
                     )}
                   >
