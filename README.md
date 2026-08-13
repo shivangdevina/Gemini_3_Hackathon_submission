@@ -430,9 +430,3 @@ npm run build
 npm run test
 
 ---
-
-If you want, I can:
-- Provide a ready-to-go .env.example for both backend and frontend that includes GEMINI_API_KEY entries.
-- Update backend/core/cloudinary.py to read credentials from environment.
-- Migrate auth endpoints to use JWT and secure password hashing (I can produce a small patch).
-- Write example notebook glue code that shows a working LangChain → Gemini 3 pipeline for PDF summarization and PRD-to-TODO conversion.
